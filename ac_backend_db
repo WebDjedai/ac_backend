@@ -1,0 +1,489 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.0
+-- Dumped by pg_dump version 16.0
+
+-- Started on 2024-06-17 06:16:25
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 216 (class 1259 OID 18046)
+-- Name: ac_categories; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ac_categories (
+    id integer NOT NULL,
+    image character varying NOT NULL,
+    title character varying NOT NULL,
+    parent_category_id integer NOT NULL
+);
+
+
+ALTER TABLE public.ac_categories OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 18045)
+-- Name: ac_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.ac_categories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.ac_categories_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4835 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: ac_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.ac_categories_id_seq OWNED BY public.ac_categories.id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 18143)
+-- Name: ac_comments; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ac_comments (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    product_id integer NOT NULL,
+    rate integer NOT NULL,
+    body text NOT NULL,
+    date character varying NOT NULL
+);
+
+
+ALTER TABLE public.ac_comments OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 18142)
+-- Name: ac_comments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.ac_comments_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.ac_comments_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4836 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: ac_comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.ac_comments_id_seq OWNED BY public.ac_comments.id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 18126)
+-- Name: ac_favorites; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ac_favorites (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.ac_favorites OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 18125)
+-- Name: ac_favorites_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.ac_favorites_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.ac_favorites_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4837 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: ac_favorites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.ac_favorites_id_seq OWNED BY public.ac_favorites.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 18064)
+-- Name: ac_products; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ac_products (
+    id integer NOT NULL,
+    image character varying NOT NULL,
+    title character varying NOT NULL,
+    description text NOT NULL,
+    price numeric(6,2) NOT NULL,
+    barcode character varying NOT NULL,
+    discount_procent integer DEFAULT 0 NOT NULL,
+    category_id integer NOT NULL
+);
+
+
+ALTER TABLE public.ac_products OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 18063)
+-- Name: ac_products_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.ac_products_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.ac_products_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4838 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: ac_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.ac_products_id_seq OWNED BY public.ac_products.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 18164)
+-- Name: ac_users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ac_users (
+    id integer NOT NULL,
+    image character varying,
+    name character varying,
+    surname character varying,
+    date_birth character varying,
+    email character varying NOT NULL,
+    password character varying NOT NULL,
+    is_employee boolean,
+    is_admin boolean
+);
+
+
+ALTER TABLE public.ac_users OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 18163)
+-- Name: ac_users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.ac_users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.ac_users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4839 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: ac_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.ac_users_id_seq OWNED BY public.ac_users.id;
+
+
+--
+-- TOC entry 4654 (class 2604 OID 18049)
+-- Name: ac_categories id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_categories ALTER COLUMN id SET DEFAULT nextval('public.ac_categories_id_seq'::regclass);
+
+
+--
+-- TOC entry 4658 (class 2604 OID 18146)
+-- Name: ac_comments id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_comments ALTER COLUMN id SET DEFAULT nextval('public.ac_comments_id_seq'::regclass);
+
+
+--
+-- TOC entry 4657 (class 2604 OID 18129)
+-- Name: ac_favorites id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_favorites ALTER COLUMN id SET DEFAULT nextval('public.ac_favorites_id_seq'::regclass);
+
+
+--
+-- TOC entry 4655 (class 2604 OID 18067)
+-- Name: ac_products id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_products ALTER COLUMN id SET DEFAULT nextval('public.ac_products_id_seq'::regclass);
+
+
+--
+-- TOC entry 4659 (class 2604 OID 18167)
+-- Name: ac_users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_users ALTER COLUMN id SET DEFAULT nextval('public.ac_users_id_seq'::regclass);
+
+
+--
+-- TOC entry 4821 (class 0 OID 18046)
+-- Dependencies: 216
+-- Data for Name: ac_categories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ac_categories (id, image, title, parent_category_id) FROM stdin;
+1	/categories-imgs/chaj-kofe-kakao.jpg	Чай, кофе, какао	1
+2	/categories-imgs/dom.png	Дом	2
+3	/categories-imgs/frukty-ovoshi.jpg	Фрукты, овощи	3
+4	/categories-imgs/gigiena-i-uhod.png	Гигиена и уход	4
+5	/categories-imgs/gotovaya-eda.jpg	Готовая еда	5
+6	/categories-imgs/kolbasy-sosiski.jpg	Колбасы, сосиски	6
+7	/categories-imgs/kuhnya.png	Кухня	7
+8	/categories-imgs/myaso-ptica.png	Мясо, птица	8
+9	/categories-imgs/napitki.jpg	Напитки	9
+10	/categories-imgs/odezhda-obuv.png	Одежда, обувь	10
+11	/categories-imgs/ryba-moreprodukty.png	Рыба, морепродукты	11
+12	/categories-imgs/syry-yajca-moloko.jpg	Сыры, яйца, молоко	12
+13	/categories-imgs/vipechka.png	Выпечка	13
+14	/categories-imgs/zootovari.jpg	Зоотовары	14
+\.
+
+
+--
+-- TOC entry 4827 (class 0 OID 18143)
+-- Dependencies: 222
+-- Data for Name: ac_comments; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ac_comments (id, user_id, product_id, rate, body, date) FROM stdin;
+10	4	10	5	Good product	20/02/2022
+\.
+
+
+--
+-- TOC entry 4825 (class 0 OID 18126)
+-- Dependencies: 220
+-- Data for Name: ac_favorites; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ac_favorites (id, user_id, product_id) FROM stdin;
+1	1	1
+\.
+
+
+--
+-- TOC entry 4823 (class 0 OID 18064)
+-- Dependencies: 218
+-- Data for Name: ac_products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ac_products (id, image, title, description, price, barcode, discount_procent, category_id) FROM stdin;
+10	/products-imgs/product-2.png	Цикорий растворимый Большая чашка 85г	В составе цикория нет искусственных добавок и ГМО, только корень самого растения. Он не содержит кофеина, при этом его вкус близок к кофейному, а аромат — глубокий и бодрящий.	59.99	978020137963	51	1
+9	/products-imgs/product-1.jpeg	Кофе 3в1 Nescafe карамель 14.5г	Этот в меру сладкий напиток радует тонким ароматом и сбалансированным вкусом, в котором отчётливо чувствует карамель. У кофе воздушная молочная пенка и долгое сливочное послевкусие. Откройте для себя насыщенный кофейный аромат и сбалансированный сливочно-карамельный вкус порционного растворимого кофейного напитка Nescafe 3 в 1. В современном мире, полном суеты, так важно найти время для себя. Возьмите кружку, приготовьте кофе Nescafe 3 в 1 и подумайте о том, что для вас действительно важно. Продукт готовится из кофейных зерен высокого качества средней и темной обжарки. Удобная упаковка в форме порционных пакетиков позволит насладиться насыщенным кофейным ароматом и сливочным вкусом кофе Nescafe 3 в 1 где и когда угодно. Чтобы приготовить себе этот напиток, нужно высыпать смесь в чашку и залить 150-200 мл горячей, но не кипящей воды. Перемешайте и наслаждайтесь! Сделайте восхитительную паузу с Nescafe 3 в 1 Caramel!	14.99	978020137962	16	1
+11	/products-imgs/product-3.jpeg	Чай черный Азерчай байховый 25пак 50г	Чёрный чай расфасован в удобные саше. Для заваривания используется кипяток. Через 2-3 минуты напиток будет готов.	61.99	978020137964	40	1
+12	/products-imgs/product-4.jpeg	Горячий шоколад MacСhocolate 20г	Горячий шоколад изготовлен из качественных зерен какао, обладает насыщенным ароматом и вкусом. Для приготовления напитка достаточно высыпать содержимое пакетика в кружку, залить кипятком или горячим молоком.	16.98	978020137965	10	1
+13	/products-imgs/product-5.png	Чай черный Greenfield Earl Grey Fantasy 25пак	Черный цейлонский чай из провинции Ува с цедрой цитрусовых и ароматом бергамота, современная вариация на тему классического рецепта чая Эрл Грей.	119.99	978020137966	0	1
+14	/products-imgs/product-6.png	Средство для мытья посуды Sorti Лимон/Алоэ/Микс 450г в ассортименте	Эффективная и нежная для кожи рук формула средств для мытья посуды «Sorti» с витаминами и экстрактами без труда справляется с жиром, отлично смывается, не оставляя разводов, а также обладает приятными ароматами.	74.98	978020137967	16	2
+15	/products-imgs/product-7.png	Очиститель стекол Grass Clean Glass 600мл	Универсальный очиститель для стекол, зеркал, пластика, хрома, кафеля. Не оставляет подтеков, разводов, экономичен в применении. Придает поверхностям анти-статические свойства. Может применяться в офисе для чистки мебели, обновления мониторов, стекол, зеркал, торгового оборудования. Готов к применению.	139.99	978020137968	0	2
+16	/products-imgs/product-8.jpeg	Липкий ролик Wellfort в ассортименте	Товар в ассортименте	139.99	978020137969	0	2
+17	/products-imgs/product-9.png	Батарейки GP Super алкалиновые AAA 4шт	Батареи GP серии SUPER являются надежными источниками питания, которые можно использовать в электроприборах с широким диапазоном токов. Это может быть мощная осветительная аппаратура, портативные видеосистемы, профессиональные радиостанции, детские электронные игрушки. Источники питания GP имеют стабильное напряжение 1,5В на протяжении всего цикла работы. Температурный диапазон использования от -30 до +50 °C позволяет использовать данный типа батарей повсеместно. Усовершенствованный солевой электролит, марганцево-цинковая основа батарей, позволяют им работать длительное время, обеспечивая полноценным питанием электроприборы с высоким уровнем энергопотребления. В случае длительного хранения батареи обладают низким уровнем саморазряда, что обеспечивает сохранение номинальной мощности на момент начала использования. При производстве батарей GP не используются кадмий, ртуть и прочие вредные вещества. Данные элементы питания безопасны для эксплуатации человеком и не наносят вред окружающей среде. При использовании рекомендуется соблюдать правила эксплуатации. Батареи не должны подвергаться нагреву, разбору, ударам. Крайне не рекомендуется пайка. Запрещается использовать их в качестве детских игрушек.Характеристики:Наименование: GP 24A-2CR4 SuperТипоразмер: АААТип электролита: щелочной Номинальное напряжение: 1,5В Размеры: 44,5х10,5 ммКоличество в блистере: 4 шт.	289.99	978020137970	0	2
+18	/products-imgs/product-10.png	Стиральный порошок Персил Свежесть от Вернель 3кг	Порошок для стирки Персил Свежесть от Вернель:\n• Тщательно отстирывает белые вещи и удаляет самые различные пятна\n• Возвращает вещам первозданную белизну\n• Дарит белью приятный аромат и длительную свежесть от Вернель\n• Подходит для стирки белых и светлых изделий из хлопчатобумажных, льняных, синтетических тканей и тканей из смешанных волокон в стиральных машинах-автоматах и ручной стирки в воде любой жесткости\n• Обеспечивает защиту от образования известкового налета для жесткой и мягкой воды\n• Не содержит фосфатов и хлорного отбеливателя\n• 100 % перерабатываемая упаковка	435.99	978020137971	39	2
+19	/products-imgs/product-11.png	Огурцы гладкие 1кг	Гладкие огурцы отличаются размером — они более длинные. Кожура у них глянцевая и совсем не колючая, а мякоть — плотная, сочная и хрустящая.	47.49	978020137972	0	3
+20	/products-imgs/product-12.png	Апельсины 1кг	Спелые, сочные и сладкие апельсины обладают бодрящий кислинкой во вкусе. У цитрусовых в меру плотная кожура, которая легко счищается.	109.99	978020137973	0	3
+21	/products-imgs/product-13.png	Картофель белорусский 3кг	Текстура картофеля — мягкая, рассыпчатая, но в меру плотная. Вкус — классический, нежный. Картофель хорошо разваривается, но держит форму. Во время резки мякоть не темнеет быстро.	164.97	978020137974	0	3
+22	/products-imgs/product-14.png	Морковь мытая 1кг	Морковь уже вымыта, но её всё же стоит сполоснуть перед готовкой. Оранжевая, продолговатая, крупная морковь с хрустящей мякотью и лёгким сладковатым вкусом. Она не горчит и легко поддаётся любой обработке.	83.99	978020137975	0	3
+23	/products-imgs/product-15.jpeg	Яблоки Красные	Яблоки этого сорта имеют аккуратную округлую форму и насыщенный оттенок. Мякоть — желтоватая, сочная и сладкая на вкус. Плоды средней плотности легко кусать — они не слишком твёрдые.	149.99	978020137976	0	3
+\.
+
+
+--
+-- TOC entry 4829 (class 0 OID 18164)
+-- Dependencies: 224
+-- Data for Name: ac_users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ac_users (id, image, name, surname, date_birth, email, password, is_employee, is_admin) FROM stdin;
+6	/users-imgs/empty-user.png	Elovich	Mila	20/02/2000	12345@mail.ru	miha12alko	f	f
+4	/users-imgs/empty-user.png	Mongo	Alex	28/04/2004	123@mail.ru	miha12alko	f	f
+\.
+
+
+--
+-- TOC entry 4840 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: ac_categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ac_categories_id_seq', 14, true);
+
+
+--
+-- TOC entry 4841 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: ac_comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ac_comments_id_seq', 12, true);
+
+
+--
+-- TOC entry 4842 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: ac_favorites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ac_favorites_id_seq', 1, true);
+
+
+--
+-- TOC entry 4843 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: ac_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ac_products_id_seq', 23, true);
+
+
+--
+-- TOC entry 4844 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: ac_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ac_users_id_seq', 6, true);
+
+
+--
+-- TOC entry 4661 (class 2606 OID 18053)
+-- Name: ac_categories ac_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_categories
+    ADD CONSTRAINT ac_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4671 (class 2606 OID 18150)
+-- Name: ac_comments ac_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_comments
+    ADD CONSTRAINT ac_comments_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4669 (class 2606 OID 18131)
+-- Name: ac_favorites ac_favorites_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_favorites
+    ADD CONSTRAINT ac_favorites_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4665 (class 2606 OID 18072)
+-- Name: ac_products ac_products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_products
+    ADD CONSTRAINT ac_products_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4673 (class 2606 OID 18171)
+-- Name: ac_users ac_users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_users
+    ADD CONSTRAINT ac_users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4667 (class 2606 OID 18115)
+-- Name: ac_products unique_barcode; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_products
+    ADD CONSTRAINT unique_barcode UNIQUE (barcode);
+
+
+--
+-- TOC entry 4675 (class 2606 OID 18173)
+-- Name: ac_users unique_email; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_users
+    ADD CONSTRAINT unique_email UNIQUE (email);
+
+
+--
+-- TOC entry 4663 (class 2606 OID 18124)
+-- Name: ac_categories unique_title; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_categories
+    ADD CONSTRAINT unique_title UNIQUE (title);
+
+
+--
+-- TOC entry 4676 (class 2606 OID 18118)
+-- Name: ac_products out_category; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ac_products
+    ADD CONSTRAINT out_category FOREIGN KEY (category_id) REFERENCES public.ac_categories(id) NOT VALID;
+
+
+-- Completed on 2024-06-17 06:16:25
+
+--
+-- PostgreSQL database dump complete
+--
+
